@@ -1,0 +1,10 @@
+[package]
+name = "wasmloading"
+version = "0.1.0"
+authors = ["Navidem <navid.emamdoost@gmail.com>"]
+
+[lib]
+#crate_type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2.11"
