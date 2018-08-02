@@ -1,17 +1,12 @@
 #![feature(use_extern_macros, wasm_custom_section, wasm_import_module)]
-#![feature(proc_macro)]
 
-extern crate wasm_bindgen;
 
-use wasm_bindgen::prelude::*;
-pub type UntypedFnPointer = *mut();
-#[wasm_bindgen]
+pub type UntypedFnPointer = *mut ();
 extern{
-    pub fn load(url: &str, callback: UntypedFnPointer);
-    pub fn symbol(name: &str) -> UntypedFnPointer;
+    pub fn load(url_addr: *const u8, url_len: usize, callback: fn());
+    pub fn symbol(name_addr: *const u8, name_len: usize) -> UntypedFnPointer;
 }
-#[wasm_bindgen]
-pub fn run_load_callback(f: UntypedFnPointer) {
-    let f = f as *mut fn();
-    unsafe { (*f)() }
+#[no_mangle]
+pub extern "C" fn run_load_callback(f: fn()) {
+    f()
 }
