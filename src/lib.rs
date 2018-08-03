@@ -1,9 +1,9 @@
 #![feature(use_extern_macros, wasm_custom_section, wasm_import_module)]
 
 
-pub type UntypedFnPointer = *mut ();
+pub type UntypedFnPointer = *mut u8;
 extern{
-    pub fn load(url_addr: *const u8, url_len: usize, callback: fn());
+    pub fn load(url_addr: *const u8, url_len: usize, callback: extern "C" fn());
     pub fn symbol(name_addr: *const u8, name_len: usize) -> UntypedFnPointer;
 }
 #[no_mangle]
